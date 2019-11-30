@@ -9,5 +9,6 @@ DinosaurList,
 urlpatterns = [
     path('login/', TokenObtainPairView.as_view() , name='login'),
     path('register/', UserCreateAPIView.as_view(), name='register'),
-    path('list/', DinosaurList.as_view(), name='list'),
+    path('list/', DinosaurList.as_view(), name='list'),    
+    path('profile/', views.Profile.as_view(), name="profile"),
 ]

@@ -8,3 +8,9 @@ class UserCreateAPIView(CreateAPIView):
 class DinosaurList(ListAPIView):
 	queryset = Dinosaur.objects.all()
 	serializer_class = ListSerializer
+
+class ProfileDetails(RetrieveAPIView):
+	serializer_class = ProfileSerializer
+
+	def get_object(self):
+		return self.request.user.profile

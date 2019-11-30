@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Dinosaur(models.Model):
 	CHOICES = (('common', 'common'),
@@ -14,3 +15,11 @@ class Dinosaur(models.Model):
 
 	def __str__(self):
 		return self.name
+
+
+class Profile(models.Model):
+	user = models.OneToOneField(User, on_delete=models.CASCADE)
+	orders = models.ManyToManyField(Order, on_delete=models.CASCADE)
+
+	def __str__(self):
+		return str(self.user)

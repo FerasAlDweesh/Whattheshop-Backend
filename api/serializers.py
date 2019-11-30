@@ -21,3 +21,8 @@ class ListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dinosaur
         fields = ['name', 'image', 'description', 'rarity', 'price', 'id']
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['user', 'orders']

@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Dinosaur
+from .models import Dinosaur, Order, OrderedItem
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
@@ -21,3 +21,13 @@ class ListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dinosaur
         fields = ['name', 'image', 'description', 'rarity', 'price', 'id']
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ['customer', 'date', 'item', 'id']
+
+class OrderDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ['item', 'quantity', 'price', 'date', 'id']

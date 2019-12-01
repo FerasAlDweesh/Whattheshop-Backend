@@ -3,14 +3,15 @@ from django.contrib.auth.models import User
 from datetime import datetime
 
 class Dinosaur(models.Model):
-	CHOICES = (('common', 'common'),
-		('uncommon', 'uncommon'), ('rare', 'rare'),
-		('exotic', 'exotic'), ('legendary', 'legendary')
-
+	CHOICES = (
+		('common', 'common'),
+		('uncommon', 'uncommon'),
+		('rare', 'rare'),
+		('exotic', 'exotic'),
+		('legendary', 'legendary')
 		)
 	name = models.CharField(max_length=105)
 	price = models.DecimalField(default=0.00, decimal_places=2, max_digits=100)
-	inventory = models.PositiveIntegerField()
 	rarity = models.CharField(max_length=105, choices=CHOICES)
 	description = models.TextField()
 	image = models.ImageField(null=True, blank=True)
@@ -25,12 +26,12 @@ class Order(models.Model):
 	item = models.ManyToManyField(Dinosaur, through = 'OrderedItem') #Item and Quantity purchased (OrderedItem)
 
 	def __str__(self):
-		return self.customer
+		return "%s, %s" % (self.customer.username, self.id)
 
 class OrderedItem(models.Model):
 	item = models.ForeignKey(Dinosaur, on_delete = models.CASCADE) #Name and Price of Item(Dinosaur)
-    quantity = models.IntegerField(default=0,validators=[MinValueValidator(1)])
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+	quantity = models.PositiveIntegerField()
+	order = models.ForeignKey(Order, on_delete=models.CASCADE)
 	# calculated in front end:
 
 	#  - total quantity

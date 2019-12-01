@@ -22,12 +22,24 @@ class ListSerializer(serializers.ModelSerializer):
         model = Dinosaur
         fields = ['name', 'image', 'description', 'rarity', 'price', 'id']
 
-class OrderSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Order
-        fields = ['customer', 'date', 'item', 'id']
+class OrderedItemSerializer(serializers.ModelSerializer):
 
-class OrderDetailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = OrderedItem
+        fields = ['item', 'quantity']
+
+        
+        def get_quantity(self, obj):
+            return obj.item.quantity
+
+class OrderSerializer(serializers.ModelSerializer):
+
+
+    ordered_item = OrderedItemSerializer(many=True)
+
     class Meta:
         model = Order
-        fields = ['item', 'quantity', 'price', 'date', 'id']
+        fields = ['customer', 'date', 'ordered_item', 'price' 'id']
+
+

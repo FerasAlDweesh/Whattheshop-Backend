@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
 
+
 class Dinosaur(models.Model):
 	CHOICES = (
 		('common', 'common'),
@@ -19,7 +20,7 @@ class Dinosaur(models.Model):
 	def __str__(self):
 		return self.name
 
-class Order(models.Model):
+  class Order(models.Model):
 	# id
 	customer = models.ForeignKey(User, on_delete = models.CASCADE)
 	date = models.DateTimeField(auto_now_add=True)
@@ -36,3 +37,4 @@ class OrderedItem(models.Model):
 
 	#  - total quantity
 	#  - total price
+

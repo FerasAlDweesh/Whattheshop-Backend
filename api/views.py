@@ -1,10 +1,11 @@
+from django.contrib.auth.models import User
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, RetrieveUpdateAPIView, DestroyAPIView
-from .serializers import UserCreateSerializer, ListSerializer, OrderSerializer, CreateOrderSerializer
 from rest_framework.filters import SearchFilter, OrderingFilter
-from .models import Dinosaur, Order, OrderedItem
-from .permissions import IsOrderOwner
 from rest_framework.permissions import IsAuthenticated
 from datetime import datetime
+from .models import Dinosaur, Order, OrderedItem
+from .serializers import UserCreateSerializer, ListSerializer, OrderSerializer, CreateOrderSerializer, ProfileSerializer
+from .permissions import IsOrderOwner
 
 class UserCreateAPIView(CreateAPIView):
     serializer_class = UserCreateSerializer
@@ -33,3 +34,10 @@ class CreateOrderedItem(CreateAPIView):
 
 	def perform_create(self, serializer):
 		serializer.save(customer=self.request.user)
+
+class ProfileDetails(RetrieveAPIView):
+	queryset = User.objects.all()
+	serializer_class = ProfileSerializer
+	lookup_field = 'id'
+	lookup_url_kwarg = 'customer_id'
+

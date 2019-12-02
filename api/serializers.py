@@ -43,3 +43,17 @@ class OrderSerializer(serializers.ModelSerializer):
     def get_customer(self, obj):
         return obj.customer.first_name
 
+class CreateOrderSerializer(serializers.ModelSerializer):
+    # name = serializers.SerializerMethodField()
+    # price = serializers.SerializerMethodField()
+    class Meta:
+        model = OrderedItem
+        fields = ['item', 'quantity']
+
+    # def get_name(self, obj):
+    #     serializer = DinosaurSerializer()
+    #     return serializer.name
+
+    # def get_price(self, obj):
+    #     serializer = DinosaurSerializer()
+    #     return serializer.price

@@ -14,12 +14,11 @@ class DinosaurList(ListAPIView):
 	serializer_class = ListSerializer
 
 class OrderList(ListAPIView):
-	queryset = Order.objects.all()
 	serializer_class = OrderSerializer
 	# permission_classes = [IsAuthenticated]
 
 	def get_queryset(self):
-		return Order.objects.filter(user=self.request.user, date__lte=datetime.today())
+		return Order.objects.filter(customer=self.request.user)
 
 class OrderDetails(RetrieveAPIView):
 	queryset = Order.objects.all()
@@ -33,4 +32,4 @@ class CreateOrderedItem(CreateAPIView):
 	permission_classes = [IsAuthenticated]
 
 	def perform_create(self, serializer):
-		serializer.save(user=self.request.user, order_id=self.kwargs['order_id'])
+		serializer.save(customer=self.request.user, order_id=self.kwargs.get('order_id'))

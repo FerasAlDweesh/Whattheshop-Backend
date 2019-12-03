@@ -35,28 +35,31 @@ class OrderedItemSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     customer = serializers.SerializerMethodField()
-    ordereditem_set = OrderedItemSerializer(many=True)
+    items = OrderedItemSerializer(many=True)
     class Meta:
         model = Order
-        fields = ['customer', 'date', 'ordereditem_set', 'id']
+        fields = ['customer', 'date', 'items', 'id']
 
     def get_customer(self, obj):
         return obj.customer.first_name
 
-class CreateOrderSerializer(serializers.ModelSerializer):
-    # name = serializers.SerializerMethodField()
-    # price = serializers.SerializerMethodField()
+class CreateOrderedItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderedItem
         fields = ['item', 'quantity']
 
-    # def get_name(self, obj):
-    #     serializer = DinosaurSerializer()
-    #     return serializer.name
+class CreateOrderSerializer(serializers.ModelSerializer):
+    items = CreateOrderedItemSerializer(many=True)
+    class Meta:
+        model = Order
+        fields = ['items']
 
-    # def get_price(self, obj):
-    #     serializer = DinosaurSerializer()
-    #     return serializer.price
+    def create(self, validated_data):
+        items = validated_data.pop('items')
+        order = Order.objects.create(**validated_data)
+        for item in items:
+            OrderedItem.objects.create(**item, order=order)
+        return order
 
 class ProfileSerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField()

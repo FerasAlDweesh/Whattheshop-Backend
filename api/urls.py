@@ -5,7 +5,7 @@ UserCreateAPIView,
 DinosaurList,
 OrderList,
 OrderDetails,
-CreateOrderedItem,
+CreateOrder,
 DinosaurList, 
 ProfileDetails,
 )
@@ -16,7 +16,7 @@ urlpatterns = [
     path('register/', UserCreateAPIView.as_view(), name='register'),
   
     path('dinosaurs/', DinosaurList.as_view(), name='dinosaur-list'),
-    path('orders/create/', CreateOrderedItem.as_view(), name='create-order'),
+    path('orders/create/', CreateOrder.as_view(), name='create-order'),
     path('orders/', OrderList.as_view(), name='orders'),
     path('orders/<int:order_id>/', OrderDetails.as_view(), name='order-details'),
  

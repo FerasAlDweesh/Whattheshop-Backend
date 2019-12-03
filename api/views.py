@@ -28,7 +28,7 @@ class OrderDetails(RetrieveAPIView):
 	lookup_field = 'id'
 	lookup_url_kwarg = 'order_id'
 
-class CreateOrderedItem(CreateAPIView):
+class CreateOrder(CreateAPIView):
 	serializer_class = CreateOrderSerializer
 	permission_classes = [IsAuthenticated]
 

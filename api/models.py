@@ -22,7 +22,7 @@ class Dinosaur(models.Model):
 
 class Order(models.Model):
 	# id
-	customer = models.ForeignKey(User, on_delete = models.CASCADE)
+	customer = models.ForeignKey(User, on_delete = models.CASCADE, related_name='orders')
 	date = models.DateTimeField(auto_now_add=True)
 	item = models.ManyToManyField(Dinosaur, through = 'OrderedItem') #Item and Quantity purchased (OrderedItem)
 
@@ -32,7 +32,7 @@ class Order(models.Model):
 class OrderedItem(models.Model):
 	item = models.ForeignKey(Dinosaur, on_delete = models.CASCADE) #Name and Price of Item(Dinosaur)
 	quantity = models.PositiveIntegerField()
-	order = models.ForeignKey(Order, on_delete=models.CASCADE)
+	order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
 	# calculated in front end:
 
 	#  - total quantity

@@ -12,7 +12,7 @@ class Dinosaur(models.Model):
 		('legendary', 'legendary')
 		)
 	name = models.CharField(max_length=105)
-	price = models.DecimalField(default=0.00, decimal_places=2, max_digits=100)
+	price = models.DecimalField(default=0.000, decimal_places=3, max_digits=100)
 	rarity = models.CharField(max_length=105, choices=CHOICES)
 	description = models.TextField()
 	image = models.ImageField(null=True, blank=True)
@@ -20,7 +20,7 @@ class Dinosaur(models.Model):
 	def __str__(self):
 		return self.name
 
-  class Order(models.Model):
+class Order(models.Model):
 	# id
 	customer = models.ForeignKey(User, on_delete = models.CASCADE)
 	date = models.DateTimeField(auto_now_add=True)

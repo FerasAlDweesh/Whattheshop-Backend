@@ -63,13 +63,10 @@ class CreateOrderSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField()
-    # past_orders = serializers.SerializerMethodField()
     class Meta:
         model = User
         fields = ['username', 'name', 'email']
 
     def get_name(self, obj):
         return "%s %s"%(obj.first_name, obj.last_name)
-
-    # def get_past_orders(self, obj)
 

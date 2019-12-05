@@ -70,3 +70,5 @@ class ProfileSerializer(serializers.ModelSerializer):
     def get_name(self, obj):
         return "%s %s"%(obj.first_name, obj.last_name)
 
+    
+

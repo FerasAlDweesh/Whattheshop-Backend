@@ -41,3 +41,6 @@ class ProfileDetails(RetrieveAPIView):
 	lookup_field = 'id'
 	lookup_url_kwarg = 'customer_id'
 
+	def get_object(self):
+		return self.request.user
+

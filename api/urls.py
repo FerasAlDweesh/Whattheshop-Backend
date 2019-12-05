@@ -20,5 +20,5 @@ urlpatterns = [
     path('orders/', OrderList.as_view(), name='orders'),
     path('orders/<int:order_id>/', OrderDetails.as_view(), name='order-details'),
  
-    path('profile/<int:customer_id>/', ProfileDetails.as_view(), name="profile"),
+    path('profile/', ProfileDetails.as_view(), name="profile"),
 ]
